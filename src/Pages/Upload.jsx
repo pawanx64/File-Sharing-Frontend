@@ -82,72 +82,75 @@ export const Upload = () => {
   };
   
   return (
-    <div>
-      <ToastContainer
-                position="top-center"
-                autoClose={2500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-      />
-      <Navbar />
-      <div className="flex flex-wrap flex-col mt-24 justify-center items-center gap-10 m-auto mb-24">
-        <div className="text-center md:text-left">
-          <span className="text-3xl md:text-2xl lg:text-3xl font-sans font-bold">
-            Start <span className="text-blue-600">Uploading </span>File And
-            <span className="text-blue-600"> Share </span> it
-          </span>
-        </div>
-        <div onClick={handleDivClick} className="flex flex-wrap bg-slate-100 hover:bg-slate-200 flex-col gap-6  justify-center border-4 border-dotted p-6 md:p-16 border-stone-400">
-          <input
-            type="file"
-            name="file"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
-          <span className="flex justify-center">
-            <HiOutlineCloudUpload size={60} className="" />
-          </span>
-          <span className="flex  gap-2 text-lg sm:text-3xl  font-sans font-bold">
-            Click To Upload Or
-            <span className="text-blue-600">Drag</span>
-            And
-            <span className="text-blue-600">Drop</span>
-          </span>
-        </div>
-        <div className="flex flex-wrap">
-            {selectedFile && (
-                <div className=" flex flex-wrap border-4 border-dotted p-4 border-stone-400">
-                    <p className="text-xl font-sans font-bold"><span className="text-blue-700">Selected file:</span> {selectedFile.name}</p>
-                </div>
-            )}
-        </div>
-        <div>
-          <button onClick={handleUpload} className="text-white bg-blue-700 hover:shadow-lg hover:shadow-slate-400 text-xl w-60  hover:bg-blue-800  font-medium rounded-full  px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Upload
-            
-          </button>
-          
-        </div>
-        <div className="flex justify-center mb-10">
-            { genlink && (
-              <div className="flex flex-col border-4 border-dotted p-5  md:w-auto gap-4 border-stone-400 text-lg md:text-xl font-sans font-bold ">
-                      <span className="flex justify-center">Generated Link</span>
-                      <span className="flex justify-center items-center flex-wrap gap-4">
-                            <a href={genlink} target="_blank" rel="noopener noreferrer" className=" text-center text-blue-600 hover:underline break-all">{genlink}</a>
-                            <button onClick={handleCopyButtonClick} className="flex justify-center items-center" ><MdContentCopy size={21}/></button>
-                      </span>
-                </div>
-            )}
-        </div>
+    <div className='bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen'>
+    <ToastContainer
+      position="top-center"
+      autoClose={2500}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+    />
+    <Navbar />
+    <div className="flex flex-col items-center gap-12 mt-16 mb-24 p-6">
+      <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-800 text-center">
+        Start <span className="text-blue-600">Uploading</span> Your File and <span className="text-blue-600">Share</span> It
+      </h1>
+      <div
+        onClick={handleDivClick}
+        className="bg-white hover:bg-gray-50 transition duration-300 ease-in-out flex flex-col items-center justify-center border-4 border-dashed border-gray-300 p-8 rounded-xl shadow-lg cursor-pointer"
+      >
+        <input
+          type="file"
+          name="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+        <HiOutlineCloudUpload size={60} className="text-blue-600 mb-4" />
+        <p className="text-lg font-bold text-gray-700">
+          Click To Upload Or <span className="text-blue-600">Drag</span> And <span className="text-blue-600">Drop</span>
+        </p>
       </div>
-
+      {selectedFile && (
+        <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg shadow-md">
+          <p className="text-xl font-semibold text-gray-800">
+            <span className="text-blue-700">Selected file:</span> {selectedFile.name}
+          </p>
+        </div>
+      )}
+      <button
+        onClick={handleUpload}
+        className="bg-blue-600 text-white hover:bg-blue-700 transition duration-300 ease-in-out text-xl px-6 py-2 rounded-full shadow-md focus:outline-none"
+      >
+        Upload
+      </button>
+      {genlink && (
+        <div className="flex flex-col items-center border-2 border-dashed border-gray-300 p-6 rounded-lg shadow-md bg-white">
+          <p className="text-xl font-semibold text-gray-800">Generated Link</p>
+          <div className="flex flex-col items-center gap-4 mt-4">
+            <a
+              href={genlink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline break-all"
+            >
+              {genlink}
+            </a>
+            <button
+              onClick={handleCopyButtonClick}
+              className="flex items-center justify-center text-blue-600 hover:bg-blue-50 p-2 rounded-full transition duration-300 ease-in-out"
+            >
+              <MdContentCopy size={21} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
+  </div>
   );
 };

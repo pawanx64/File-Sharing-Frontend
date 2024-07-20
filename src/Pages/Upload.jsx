@@ -82,7 +82,7 @@ export const Upload = () => {
   };
   
   return (
-    <div className='bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen'>
+    <div className='bg-gradient-to-br from-gray-100 to-gray-300 h-screen'>
     <ToastContainer
       position="top-center"
       autoClose={2500}

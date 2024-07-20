@@ -23,7 +23,7 @@ export const About = () => {
             <img src={image} alt='Sky Box Share logo' className='h-96 rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105'/>
         </div>
     </div>
-    <div className='mt-20 flex justify-center border-t-4 border-[#003366]'>
+    <div className='mt-20 flex justify-center '>
         <div className='flex flex-col md:flex-row text-white justify-center gap-8 bg-gradient-to-r from-red-700 via-red-600 to-red-500 w-full p-12 rounded-xl shadow-lg'>
             <div className='flex flex-col items-center gap-2'>
                 <span className='text-6xl font-bold animate-bounce'>10+</span>
@@ -59,7 +59,7 @@ export const About = () => {
             </p>
         </div>
     </div>
-    <footer className='border-t-4 border-[#003366] text-white bg-orange-700 py-8 flex flex-col items-center'>
+    <footer className=' text-white bg-orange-700 py-8 flex flex-col items-center'>
         <h1 className='text-4xl font-sans font-semibold mb-2'>Sky Box</h1>
         <p className='text-lg font-sans font-semibold'>&copy; SkyBox 2024 All rights reserved</p>
     </footer>

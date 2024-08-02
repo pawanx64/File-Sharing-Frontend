@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { Navbar } from "../Components/Navbar";
 import { HiOutlineCloudUpload } from "react-icons/hi";
 import axios from 'axios';
@@ -10,8 +9,8 @@ export const Upload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [maxSizeExceeded, setMaxSizeExceeded] = useState(false);
+  const [downloadLink, setDownloadLink] = useState('');
 
-  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   
   const MAX_FILE_SIZE_MB = 5; // 5MB
@@ -53,7 +52,7 @@ export const Upload = () => {
       const id = response.data.id;
       const urlResponse = await axios.get(`https://file-sharing-backend-rho.vercel.app/${id}`);
       const secureUrl = urlResponse.data.file.secure_url;
-      navigate(`/download/${id}`, { state: { url: secureUrl, name: selectedFile.name, size: selectedFile.size } });
+      setDownloadLink(secureUrl);
       toast.success('Upload Successful😊', { position: "top-center" });
     } catch (error) {
       console.error('Error uploading file:', error);
@@ -134,6 +133,16 @@ export const Upload = () => {
                 ></div>
               </div>
             </div>
+          </div>
+        )}
+        {downloadLink && (
+          <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg shadow-md mt-6">
+            <p className="text-xl font-semibold text-gray-800">
+              <span className="text-blue-700">Download Link:</span>
+            </p>
+            <a href={downloadLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xl mt-2 block">
+              {downloadLink}
+            </a>
           </div>
         )}
       </div>

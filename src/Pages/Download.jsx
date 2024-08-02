@@ -63,12 +63,14 @@ export const Download = () => {
           <p className="text-2xl font-semibold text-gray-800 mt-2">
             <span className="text-blue-700">File Size:</span> {(size / (1024 * 1024)).toFixed(2)} MB
           </p>
-          <button
-            onClick={handleDownload}
-            className="mt-6 bg-blue-600 text-white hover:bg-blue-700 transition duration-300 ease-in-out text-xl px-8 py-3 rounded-full shadow-md focus:outline-none transform hover:scale-105"
-          >
-            Download
-          </button>
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={handleDownload}
+              className="bg-blue-600 text-white hover:bg-blue-700 transition duration-300 ease-in-out text-xl px-8 py-3 rounded-full shadow-md focus:outline-none transform hover:scale-105"
+            >
+              Download
+            </button>
+          </div>
           {downloadProgress > 0 && (
             <div className="w-full max-w-md mt-6">
               <div className="relative pt-1">

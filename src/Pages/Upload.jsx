@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Navbar } from "../Components/Navbar";
-import { HiOutlineCloudUpload } from "react-icons/hi";
+import { HiOutlineCloudUpload, HiOutlineClipboardCopy } from "react-icons/hi";
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -58,6 +58,11 @@ export const Upload = () => {
       console.error('Error uploading file:', error);
       toast.error('Error uploading file😔', { position: "top-center" });
     }
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(downloadLink);
+    toast.info('Download link copied to clipboard!', { position: "top-center" });
   };
 
   return (
@@ -140,9 +145,16 @@ export const Upload = () => {
             <p className="text-xl font-semibold text-gray-800">
               <span className="text-blue-700">Download Link:</span>
             </p>
-            <a href={downloadLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xl mt-2 block">
-              {downloadLink}
-            </a>
+            <div className="flex items-center gap-2">
+              <a href={downloadLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xl">
+                {downloadLink}
+              </a>
+              <HiOutlineClipboardCopy
+                size={24}
+                className="text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300"
+                onClick={copyToClipboard}
+              />
+            </div>
           </div>
         )}
       </div>

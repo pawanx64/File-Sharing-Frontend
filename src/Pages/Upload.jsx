@@ -8,27 +8,34 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Upload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadedId, setUploadedId] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [maxSizeExceeded, setMaxSizeExceeded] = useState(false);
 
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   
+  const MAX_FILE_SIZE_MB = 5; // 5MB
+  const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
   const handleDivClick = () => {
     fileInputRef.current.click();
   };
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; 
-    console.log('Selected file:', file);
-    setSelectedFile(file);
+    const file = event.target.files[0];
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      setMaxSizeExceeded(true);
+      setSelectedFile(null);
+      toast.error(`File size exceeds ${MAX_FILE_SIZE_MB}MB limit.`, { position: "top-center" });
+    } else {
+      setMaxSizeExceeded(false);
+      setSelectedFile(file);
+    }
   };
 
   const handleUpload = async () => {
     if (!selectedFile) {
-      toast.error('No File Selected😔', {
-        position: "top-center",
-      });
+      toast.error('No File Selected😔', { position: "top-center" });
       return;
     }
     toast.info('Uploading File. Please wait...🔄', { position: "top-center" });
@@ -36,28 +43,21 @@ export const Upload = () => {
     formData.append('file', selectedFile);
     try {
       const response = await axios.post('https://file-sharing-backend-rho.vercel.app/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           setUploadProgress(percentCompleted);
         }
       });
       console.log('Upload successful:', response.data);
-      setUploadedId(response.data.id);
-      toast.success('Upload Successful😊', {
-        position: "top-center",
-      });
       const id = response.data.id;
       const urlResponse = await axios.get(`https://file-sharing-backend-rho.vercel.app/${id}`);
       const secureUrl = urlResponse.data.file.secure_url;
       navigate(`/download/${id}`, { state: { url: secureUrl, name: selectedFile.name, size: selectedFile.size } });
+      toast.success('Upload Successful😊', { position: "top-center" });
     } catch (error) {
       console.error('Error uploading file:', error);
-      toast.error('Error uploading file😔', {
-        position: "top-center",
-      });
+      toast.error('Error uploading file😔', { position: "top-center" });
     }
   };
 
@@ -96,12 +96,18 @@ export const Upload = () => {
             <p className="text-lg font-bold text-gray-700">
               Click To Upload Or <span className="text-blue-600">Drag</span> And <span className="text-blue-600">Drop</span>
             </p>
+            {maxSizeExceeded && (
+              <p className="text-red-600 text-sm mt-2">File exceeds 5MB limit.</p>
+            )}
           </div>
         )}
         {selectedFile && (
           <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg shadow-md">
             <p className="text-xl font-semibold text-gray-800">
               <span className="text-blue-700">Selected file:</span> {selectedFile.name}
+            </p>
+            <p className="text-lg text-gray-600">
+              <span className="text-blue-700">File Size:</span> {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
             </p>
           </div>
         )}

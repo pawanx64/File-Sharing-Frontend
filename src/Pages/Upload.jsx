@@ -66,7 +66,7 @@ export const Upload = () => {
   };
 
   return (
-    <div className='bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen'>
+    <div className='bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen flex flex-col'>
       <ToastContainer
         position="top-center"
         autoClose={2500}
@@ -80,7 +80,7 @@ export const Upload = () => {
         theme="colored"
       />
       <Navbar />
-      <div className="flex flex-col items-center gap-12 mt-16 mb-24 p-6">
+      <div className="flex flex-col items-center gap-12 mt-16 mb-24 p-6 flex-grow">
         <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-800 text-center">
           Start <span className="text-blue-600">Uploading</span> Your File and <span className="text-blue-600">Share</span> It
         </h1>

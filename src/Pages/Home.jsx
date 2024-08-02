@@ -31,7 +31,7 @@ export const Home = () => {
               Drag and Drop Your File Directly On Our Cloud
             </p>
             <p className='text-slate-600 text-lg sm:text-xl font-medium'>
-              and Share It With Your Friends or Send It By Email
+              and Share It With Your Friends 
             </p>
           </div>
         </div>

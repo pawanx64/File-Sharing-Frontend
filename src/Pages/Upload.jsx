@@ -132,7 +132,7 @@ export const Upload = () => {
           Upload
         </button>
         {uploadProgress > 0 && (
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md mt-6">
             <div className="relative pt-1">
               <div className="flex mb-2 items-center justify-between">
                 <div>
@@ -141,10 +141,10 @@ export const Upload = () => {
                   </span>
                 </div>
               </div>
-              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+              <div className="overflow-hidden h-3 mb-4 text-xs flex rounded bg-blue-200">
                 <div
                   style={{ width: `${uploadProgress}%` }}
-                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600"
+                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 transition-all duration-500"
                 ></div>
               </div>
             </div>

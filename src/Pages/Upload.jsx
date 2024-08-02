@@ -1,16 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from "../Components/Navbar";
 import { HiOutlineCloudUpload } from "react-icons/hi";
 import axios from 'axios';
-import { MdContentCopy } from "react-icons/md";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Upload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadedId, setUploadedId] = useState(null);
-  const [genlink, setgenlink] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const navigate = useNavigate();
@@ -54,33 +52,15 @@ export const Upload = () => {
       const id = response.data.id;
       const urlResponse = await axios.get(`https://file-sharing-backend-rho.vercel.app/${id}`);
       const secureUrl = urlResponse.data.file.secure_url;
-      setgenlink(secureUrl);
-      console.log('Secure URL:', secureUrl);
+      navigate(`/download/${id}`, { state: { url: secureUrl, name: selectedFile.name, size: selectedFile.size } });
     } catch (error) {
       console.error('Error uploading file:', error);
       toast.error('Error uploading file😔', {
         position: "top-center",
       });
     }
-  }
-
-  const handleCopyButtonClick = () => {
-    if (genlink) {
-      navigator.clipboard.writeText(genlink)
-        .then(() => 
-          toast.success('Link copied to clipboard😊', {
-            position: "top-center",
-          })
-        )
-        .catch(err => {
-          console.error('Failed to copy link: ', err);
-          toast.error('Failed to copy link😔', {
-            position: "top-center",
-          });
-        });
-    }
   };
-  
+
   return (
     <div className='bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen'>
       <ToastContainer
@@ -147,27 +127,6 @@ export const Upload = () => {
                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 transition-all duration-500"
                 ></div>
               </div>
-            </div>
-          </div>
-        )}
-        {genlink && (
-          <div className="flex flex-col items-center border-2 border-dashed border-gray-300 p-6 rounded-lg shadow-md bg-white">
-            <p className="text-xl font-semibold text-gray-800">Generated Link</p>
-            <div className="flex flex-col items-center gap-4 mt-4">
-              <a
-                href={genlink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline break-all"
-              >
-                {genlink}
-              </a>
-              <button
-                onClick={handleCopyButtonClick}
-                className="flex items-center justify-center text-blue-600 hover:bg-blue-50 p-2 rounded-full transition duration-300 ease-in-out"
-              >
-                <MdContentCopy size={21} />
-              </button>
             </div>
           </div>
         )}

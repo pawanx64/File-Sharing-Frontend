@@ -141,12 +141,12 @@ export const Upload = () => {
           </div>
         )}
         {downloadLink && (
-          <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg shadow-md mt-6">
+          <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg shadow-md mt-6 w-80 h-32 overflow-auto">
             <p className="text-xl font-semibold text-gray-800">
               <span className="text-blue-700">Download Link:</span>
             </p>
             <div className="flex items-center gap-2">
-              <a href={downloadLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xl">
+              <a href={downloadLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xl truncate w-full">
                 {downloadLink}
               </a>
               <HiOutlineClipboardCopy

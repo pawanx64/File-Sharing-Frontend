@@ -1,19 +1,18 @@
 import React, { useRef, useState } from "react";
 import { Navbar } from "../Components/Navbar";
-import { HiOutlineCloudUpload } from "react-icons/hi";
+import { HiOutlineCloudUpload, HiOutlineClipboardCopy } from "react-icons/hi";
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
 
 export const Upload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [maxSizeExceeded, setMaxSizeExceeded] = useState(false);
+  const [downloadLink, setDownloadLink] = useState('');
 
   const fileInputRef = useRef(null);
-  const navigate = useNavigate();
-
+  
   const MAX_FILE_SIZE_MB = 5; // 5MB
   const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
@@ -53,21 +52,17 @@ export const Upload = () => {
       const id = response.data.id;
       const urlResponse = await axios.get(`https://file-sharing-backend-rho.vercel.app/${id}`);
       const secureUrl = urlResponse.data.file.secure_url;
-
-      toast.success('Upload Successful😊 Redirecting...', { position: "top-center" });
-
-      // Navigate to /download with file details
-      navigate('/download', {
-        state: {
-          url: secureUrl,
-          name: selectedFile.name,
-          size: selectedFile.size
-        }
-      });
+      setDownloadLink(secureUrl);
+      toast.success('Upload Successful😊', { position: "top-center" });
     } catch (error) {
       console.error('Error uploading file:', error);
       toast.error('Error uploading file😔', { position: "top-center" });
     }
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(downloadLink);
+    toast.info('Download link copied to clipboard!', { position: "top-center" });
   };
 
   return (
@@ -142,6 +137,23 @@ export const Upload = () => {
                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 transition-all duration-500"
                 ></div>
               </div>
+            </div>
+          </div>
+        )}
+        {downloadLink && (
+          <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg shadow-md mt-6 w-80 h-32 overflow-auto">
+            <p className="text-xl font-semibold text-gray-800">
+              <span className="text-blue-700">Download Link:</span>
+            </p>
+            <div className="flex items-center gap-2">
+              <a href={downloadLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xl truncate w-full">
+                {downloadLink}
+              </a>
+              <HiOutlineClipboardCopy
+                size={24}
+                className="text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300"
+                onClick={copyToClipboard}
+              />
             </div>
           </div>
         )}

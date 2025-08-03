@@ -47,7 +47,7 @@ export const Login = () => {
 
     try {
       // NOTE: Update this URL to your actual backend API endpoint
-      const res = await axios.post("http://localhost:5000/api/login", { email: trimmedEmail, password });
+      const res = await axios.post("https://file-sharing-backend-rho.vercel.app/api/login", { email: trimmedEmail, password });
       toast.success("Login successful!");
       localStorage.setItem('token', res.data.token);
       setTimeout(() => {

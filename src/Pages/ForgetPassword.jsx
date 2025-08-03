@@ -60,7 +60,7 @@ export default function ForgotPassword() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/forgot-password', {
+      const response = await fetch('https://file-sharing-backend-rho.vercel.app/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
@@ -97,7 +97,7 @@ export default function ForgotPassword() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/verify-otp', {
+      const response = await fetch('https://file-sharing-backend-rho.vercel.app/api/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp }),
@@ -146,7 +146,7 @@ export default function ForgotPassword() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/reset-password', {
+      const response = await fetch('https://file-sharing-backend-rho.vercel.app/api/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, newPassword }),

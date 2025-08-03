@@ -74,7 +74,7 @@ export const Upload = () => {
     try {
       const token = localStorage.getItem('token');
       // TODO: Update the upload URL to your backend endpoint
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post('https://file-sharing-backend-rho.vercel.app/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
@@ -87,7 +87,7 @@ export const Upload = () => {
       
       const id = response.data.id;
       // TODO: Update the download URL to your backend endpoint
-      const urlResponse = await axios.get(`http://localhost:5000/api/download/${id}`);
+      const urlResponse = await axios.get(`https://file-sharing-backend-rho.vercel.app/api/download/${id}`);
       const secureUrl = urlResponse.data.secure_url;
       setDownloadLink(secureUrl);
 

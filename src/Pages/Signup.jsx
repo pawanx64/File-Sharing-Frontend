@@ -50,7 +50,7 @@ export const Signup = () => {
 
     try {
       // NOTE: Update this URL to your actual backend API endpoint
-      await axios.post("http://localhost:5000/api/signup", {
+      await axios.post("https://file-sharing-backend-rho.vercel.app/api/signup", {
         email: trimmedEmail,
         password,
       });

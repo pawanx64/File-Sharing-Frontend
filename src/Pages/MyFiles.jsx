@@ -31,7 +31,7 @@ export default function MyFiles() {
         }
 
         // The endpoint is now correctly prefixed with /api
-        const response = await fetch('https://file-sharing-backend-rho.vercel.app/api/myfiles', {
+        const response = await fetch('http://localhost:5000/api/myfiles', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -67,7 +67,7 @@ export default function MyFiles() {
     console.log(`Attempting to delete file with ID: ${fileId}`);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://file-sharing-backend-rho.vercel.app/api/file/${fileId}`, {
+      const response = await fetch(`http://localhost:5000/api/file/${fileId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

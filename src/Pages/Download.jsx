@@ -39,18 +39,7 @@ export const Download = () => {
 
   return (
     <div className='bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen'>
-      <ToastContainer
-        position="top-center"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      
       <Navbar />
       <div className="flex flex-col items-center gap-12 mt-16 mb-24 p-6">
         <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-800 text-center">
@@ -94,4 +83,16 @@ export const Download = () => {
       </div>
     </div>
   );
+  <ToastContainer
+        position="top-center"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
 };

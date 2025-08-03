@@ -47,7 +47,7 @@ export const Login = () => {
 
     try {
       // NOTE: Update this URL to your actual backend API endpoint
-      const res = await axios.post("https://file-sharing-backend-rho.vercel.app/api/login", { email: trimmedEmail, password });
+      const res = await axios.post("http://localhost:5000/api/login", { email: trimmedEmail, password });
       toast.success("Login successful!");
       localStorage.setItem('token', res.data.token);
       setTimeout(() => {
@@ -68,18 +68,7 @@ export const Login = () => {
 
   return (
     <div className="bg-gray-950 dark:bg-neutral-50 min-h-screen flex flex-col font-sans text-gray-200 dark:text-neutral-900">
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme={theme}
-      />
+      
       <Navbar />
 
       <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -125,7 +114,7 @@ export const Login = () => {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <Link to="/forget-password" className="font-medium text-cyan-400 dark:text-cyan-600 hover:text-cyan-300 dark:hover:text-cyan-500">
+                <Link to="/forgetpassword" className="font-medium text-cyan-400 dark:text-cyan-600 hover:text-cyan-300 dark:hover:text-cyan-500">
                   Forgot your password?
                 </Link>
               </div>
@@ -168,4 +157,16 @@ export const Login = () => {
       </div>
     </div>
   );
+  <ToastContainer
+      position="top-center"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme={theme}
+    />
 };

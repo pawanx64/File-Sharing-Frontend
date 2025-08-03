@@ -84,7 +84,7 @@ export default function ChangePassword() {
       }
 
       // API call to change the password
-      const response = await fetch('https://file-sharing-backend-rho.vercel.app/api/changepassword', {
+      const response = await fetch('http://localhost:5000/api/changepassword', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json', 

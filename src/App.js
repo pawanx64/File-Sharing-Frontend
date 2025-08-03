@@ -20,7 +20,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/my-files" element={<MyFiles />} />
               <Route path="/changepassword" element={<Changepassword />} />
-              <Route path="/forget-password" element={<ForgotPassword />} />
+              <Route path="/forgetpassword" element={<ForgotPassword />} />
         </Routes>
     
   );

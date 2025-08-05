@@ -79,7 +79,7 @@ export default function MyFiles() {
       }
 
       // Optimistically update the UI by removing the file from the state
-      setFiles(prevFiles => prevFiles.filter(file => file.id !== fileId));
+      setFiles(prevFiles => prevFiles.filter(file => file._id !== fileId));
       console.log(`File ${fileId} successfully deleted.`);
     } catch (error) {
       console.error("Error deleting file:", error);

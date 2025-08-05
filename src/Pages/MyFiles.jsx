@@ -17,6 +17,7 @@ export default function MyFiles() {
   const [loading, setLoading] = useState(true);
   const [copiedLink, setCopiedLink] = useState(null); // State to track which link was copied
   const [expandedFileId, setExpandedFileId] = useState(null); // State to track which file's details are expanded
+  const [deletingFileId, setDeletingFileId] = useState(null); // State to track the file being deleted
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function MyFiles() {
 
   const handleDelete = async (fileId) => {
     console.log(`Attempting to delete file with ID: ${fileId}`);
+    setDeletingFileId(fileId); // Set the loading state for this specific file
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`https://file-sharing-backend-rho.vercel.app/api/file/${fileId}`, {
@@ -82,6 +84,8 @@ export default function MyFiles() {
     } catch (error) {
       console.error("Error deleting file:", error);
       // Handle the error (e.g., show an error toast)
+    } finally {
+      setDeletingFileId(null); // Clear the loading state
     }
   };
 
@@ -184,10 +188,18 @@ export default function MyFiles() {
                     </button>
                     <button
                       onClick={() => handleDelete(file.id)}
-                      className="p-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="p-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                       title="Delete File"
+                      disabled={deletingFileId === file.id} // Disable button while deleting
                     >
-                      <Trash2 className="w-5 h-5" />
+                      {deletingFileId === file.id ? (
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                      ) : (
+                        <Trash2 className="w-5 h-5" />
+                      )}
                     </button>
                     <div className="relative">
                       <button
